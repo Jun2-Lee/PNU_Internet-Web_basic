@@ -1,0 +1,146 @@
+## What is Internet?
+---
+network들의 network가 바로 Internet이다.     
+![image](https://user-images.githubusercontent.com/80378041/172160590-26e51a6d-f27b-4b22-8272-803865d0e35a.png)     
+> ISP(Internet Service Provider)
+연결점 하나만 이어주면 Internet에 추가할 수 있기 때문에 scalable하다.
+
+## Internet의 구성요소
+### Hardware
+- host
+  - end system
+- interconnection device
+  - Routers and Switches
+- link
+  - copper, fiber, radio...
+
+### Software
+- operating System
+- Application Programs
+- Protocols
+
+### Protocol?
+> 주고 받는 데이터의 형태, 순서, 어떤 행동을 해야 하는지 등이 정의되어있는 일종의 약속.     
+> Protocol에 맞는 Data만 처리하기 때문에 Protocol에 맞춰서 Data를 보내야 한다.     
+> 구성요소로는 format, order of message, action 등이 있다.
+
+### Network Structure
+- Network edge
+  - host : client & server
+  - 일반 클라이언트나 서버가 된다
+  - Packet을 주고 받으며 통신을 한다
+- Network core
+  - Routers or Switchs
+  - Edge들 끼리의 통신을 연결해주는 역할을 한다
+  
+### Internet Structure
+> End System은 각각 ISP로 연결되어있다.     
+> 모든 End System이 각각 따로 연결되어있지는 않고, 계층적으로 연결되어있다.
+
+![image](https://user-images.githubusercontent.com/80378041/172161863-212ad041-fba3-4a48-858a-177260df368a.png)
+
+### Internet History
+- 1961년 : Packet Switching이라는 개념이 처음으로 등장
+- 1967년 : 세계 최초의 인터넷(알파넷)이 만들어졌다
+- 1983년 : TCP/IP라는 프로토콜이 만들어졌고, DNS또한 이때 등장했다
+- 1990년대 : Web이 처음으로 등장했다
+  - HTTP, HTML이라는 프로토콜이 등장!
+
+## IP Address
+> 32_bit로 이루어진 하나의 주소. 일반적으로는 하나의 기기가 하나의 IP주소를 가지게 된다.     
+> IP를 가지고 전송한 곳과 전송할 곳을 찾을 수 있다.      
+> IP또한 계층적인 구조를 가지고 있다.
+
+![image](https://user-images.githubusercontent.com/80378041/172162748-6d60ced4-21e7-4b3e-9ab5-81f3fd9f3e7e.png)     
+- Class A : 커다란 나라, 국가 단위나 군대같은 큰 단체가 사용한다
+- Class B : Class A보다는 작은 단체가 사용한다
+- Class C : 가장 작은 단체가 사용한다
+
+### Subnets
+> Class A나 B같은 너무 많은 host를 한 곳에서 모두 관리할 수는 없기 때문에 Subnet을 사용한다.     
+> IP의 계층을 하나 더 나눈것과 똑같다.
+
+![image](https://user-images.githubusercontent.com/80378041/172163236-3aadb4fb-44a3-4aa2-b847-bcebb6aab889.png)     
+위와 같이 Host Number를 Subnet과 Host로 나누어서 사용한다.
+
+### Datagram Network
+> Datagram Network에서 datagram은 출발지와 목적지만 가지고 전송된다.      
+> 이 때, 어디로 갈 지는 Router가 전적으로 결정하게 된다.
+
+## DNS(Domain Name System)
+> IP 주소는 모두 숫자로 되어 있어서, 기억하거나 사용하기 힘들다.     
+> 그리하여 IP 주소에 Domain을 1:1로 matching하여, Domain Name Server에 저장해놓은 뒤,     
+> Mapping을 통해 IP 주소를 사용하게 되는데, 이것이 DNS이다
+
+![image](https://user-images.githubusercontent.com/80378041/172164008-8756d313-a0f4-4ea3-a93c-9a0932e95ba8.png)
+
+- Domain Database System은 분산되어 저장되어있다
+  - Single point of failure
+  - traffic volume
+  - distant centralized database      
+  - 위의 이유들로, Domain Database는 분산되어 저장한다
+
+![image](https://user-images.githubusercontent.com/80378041/172164509-7c78995f-3e7c-43f7-83f7-88b75acdaddf.png)     
+> amazon.com 도메인을 찾는 요청이 들어오면 다음과 같은 방식으로 찾는다.      
+> - Root server에서 com DNS server를 찾는다
+> - com DNS server에서 amazon.com DNS server를 찾는다
+> - amazon.com DNS server에서 IP주소를 찾아 반환한다.
+
+## Datagram Delivery
+> 위의 Datagram transmission에서 단말끼리의 통신을 살펴보았다.     
+> 하지만, 우리는 실질적으로 Process끼리의 통신을 주고 받고, 한 개의 단말에는 여러개의 Process가 동시에 실행될 수도 있다.     
+> 이 경우에, 어떤 방식으로 Datagram이 알맞은 Process에 찾아가게 되는 것일까?
+
+## Internet Protocol Stack
+![image](https://user-images.githubusercontent.com/80378041/172165662-5ba599e6-d0f3-4208-930a-71704e055f85.png)     
+- application : application을 지원한다
+  - HTTP, FTP
+- transport : Process에 맞게 data를 전송해준다. (위에서 알맞은 Process를 찾아가게 해주는 부분이 transport 계층이다)
+  - TCP, UDP
+- network : datagram이 알맞은 목적지로 가도록 도와준다
+  - IP, Routing
+- link : 인접한 network에 data를 전송한다
+- physical : bit를 전송하는 전선같은 것들이다
+
+### Transport Layer
+
+#### UDP(User Datagram Protocol)
+- 연결을 관리하지 않는다
+  - 데이터를 보낸 뒤, 어떤 일이 벌어지던 신경을 쓰지 않는다.(데이터가 잘 전송되었는지 등등)
+  - Streaming Service 등에서 사용한다
+  - 연결을 관리하기 위해서는 application 계층에서 따로 지정해주어야 한다
+- 속도가 빠르고, 간단하다는 장점이 있다
+
+![image](https://user-images.githubusercontent.com/80378041/172167634-a03ef19e-7fbb-4caf-aac4-af26047f5de9.png)
+
+#### TCP(Transmission Control Protocol)
+> Point-to-Point, Connection oriented.      
+> 연결이 되었는지도 체크하고, 데이터가 잘 전송되고 있는지에 대한 응답도 받는다.      
+> 응답 패킷이 오지 않는 경우에는, 다시 데이터를 보내기도 한다.     
+> UDP와는 다르게 헤더가 매우 길다
+
+![image](https://user-images.githubusercontent.com/80378041/172168469-18127e5a-5e07-4241-9a04-42295d306fd9.png)
+
+#### TCP vs UDP
+![image](https://user-images.githubusercontent.com/80378041/172168555-e7f91f95-65d0-477e-b918-e569e830945d.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
